@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Panorama by yihui-he</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">Panorama</h1>
+        <p class="header">image stitching</p>
+
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/yihui-he/panorama/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/yihui-he/panorama/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/yihui-he/panorama">View On GitHub</a></li>
+        </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/yihui-he">yihui-he</a></p>
+
+
+      </header>
+      <section>
+        <h1>
+<a id="panorama" class="anchor" href="#panorama" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>panorama</h1>
+
+<p>panorama creator<br>
+<img src="https://github.com/yihui-he/panorama/blob/master/results/intersection.jpg" alt="img"><br>
+<img src="https://github.com/yihui-he/panorama/blob/master/results/GrandCanyon2.jpg" alt="img"><br>
+<img src="https://github.com/yihui-he/panorama/blob/master/results/redrock.jpg" alt="img">  </p>
+
+<h3>
+<a id="bonus" class="anchor" href="#bonus" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>bonus</h3>
+
+<p>I implemented all of the elaborate features described in <strong>BONUS</strong> part.  </p>
+
+<ul>
+<li>I'm able to handle 360 panorama.</li>
+<li>Random sequence of images input is welcomed.</li>
+<li>I use color blending and smoothing to make the image more continuous.<br>
+</li>
+</ul>
+
+<h3>
+<a id="how-to-run" class="anchor" href="#how-to-run" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>how to run</h3>
+
+<p>images files are already in ./imgs  </p>
+
+<ul>
+<li>If you want to see results directly, go to ./results folder</li>
+<li>If you want to test all images sets with only one click,run RunAllDatasets.m.(This may run 10 more minutes, because I didn't resize large images. If I have more time, I can add this feature)<br>
+</li>
+<li>If you want to specify the image folder, run main.m with path to images folder as argument(as described in assignment)<br>
+</li>
+</ul>
+
+<p><strong>Note that</strong>, if you use the last way to run my code, the folder names should be as follows(I need to tune focus on each image set)<br>
+'ucsb4','family_house','glacier4','yellowstone2','GrandCanyon1','yellowstone5','yellowstone4','west_campus1','redrock','intersection','GrandCanyon2'<br>
+For example:<br>
+<code>main('./imgs/ucsb4/');</code></p>
+
+<h6>
+<a id="details-of-my-algorithms-are-shown-below" class="anchor" href="#details-of-my-algorithms-are-shown-below" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>details of my algorithms are shown below:</h6>
+
+<h3>
+<a id="360-panorama" class="anchor" href="#360-panorama" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>360 panorama</h3>
+
+<ul>
+<li>[x] mapping image to cylindrical coordinate</li>
+</ul>
+
+<h3>
+<a id="recognize-panoramarandom-inputs" class="anchor" href="#recognize-panoramarandom-inputs" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>recognize panorama(random inputs)</h3>
+
+<p>I select two random sequence images set:family_house, and west_campus1<br>
+They are already shuffled. You can see them in imgs folder.<br>
+Or you can run shuffle.bash to shuffle them again.<br>
+As described in Brown's paper, I use $N_inlier&gt;k*N_pairs+b$ to compute whether a pair of images match or not<br>
+k,b are const. Set to 5.9 and 0.22 respectively.  </p>
+
+<h3>
+<a id="merging-and-blending" class="anchor" href="#merging-and-blending" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>merging and blending</h3>
+
+<ul>
+<li>[x] Alpha<br>
+</li>
+<li>[ ] Pyramid<br>
+</li>
+<li>[x] Noblend</li>
+</ul>
+
+<h3>
+<a id="transformation" class="anchor" href="#transformation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>transformation</h3>
+
+<ul>
+<li>[x] homography transformation.</li>
+<li>[x] translation transformation.( This is more robust)</li>
+</ul>
+
+<h3>
+<a id="matching" class="anchor" href="#matching" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>matching</h3>
+
+<ul>
+<li>[x] RANSAC</li>
+<li>[ ] exposure matching<br>
+</li>
+</ul>
+
+<h3>
+<a id="global-adjustment" class="anchor" href="#global-adjustment" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>global adjustment</h3>
+
+<ul>
+<li>[x] end to end adjustment(comput shift and subtract shift/n to each image)<br>
+</li>
+<li>[ ] bundle adjustment(difficult way)<br>
+</li>
+</ul>
+
+<h3>
+<a id="getting-features" class="anchor" href="#getting-features" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>getting features</h3>
+
+<ul>
+<li>[x] use SIFT features(using VLFeat library, professor allowed)<br>
+</li>
+<li>[x] SURF features, (SIFT is better)<br>
+</li>
+</ul>
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
+  </body>
+</html>
